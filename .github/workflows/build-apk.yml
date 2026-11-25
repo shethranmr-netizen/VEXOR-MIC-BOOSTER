@@ -24,12 +24,15 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Check Android SDK
+        run: |
+          echo "Android SDK: $ANDROID_HOME"
+          test -d "$ANDROID_HOME"
+          echo "Android SDK found"
 
       - name: Extract project
         run: |
@@ -44,5 +47,3 @@ jobs:
         with:
           name: VEXOR-MIC-BOOSTER-APK
           path: source/app/build/outputs/apk/debug/app-debug.apk
-
-      
